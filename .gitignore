@@ -36,3 +36,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# static fixture snapshots — local demo data, not committed
+static/

@@ -2,6 +2,7 @@
 
 import { buildScenarioMatrix, fmt$ } from "@/utils/strategyMath";
 import { useStrategy } from "@/context/StrategyContext";
+import { CheckIcon, CloseIcon } from "@/components/icons";
 
 export default function StrategyPage() {
     const { manualBets, allocatedBets, clearAll, removeManual, updateManualStake } = useStrategy();
@@ -108,9 +109,10 @@ export default function StrategyPage() {
                                                 <tr key={i} className={`border-b border-slate-800 ${s.pnl > 0 ? "bg-green-500/5" : s.pnl < 0 ? "bg-red-500/5" : "bg-slate-800/20"}`}>
                                                     {s.outcomes.map((o, j) => (
                                                         <td key={j} className="px-3 py-1.5">
-                                                            <span className={o.won ? "text-green-400" : "text-slate-600"}>
-                                                                {o.won ? "✓" : "✗"}
-                                                            </span>
+                                                            {o.won
+                                                                ? <CheckIcon className="w-3 h-3 text-green-400" />
+                                                                : <span className="text-slate-600">✗</span>
+                                                            }
                                                         </td>
                                                     ))}
                                                     <td className={`px-3 py-1.5 text-right font-bold ${s.pnl > 0 ? "text-green-400" : s.pnl < 0 ? "text-red-400" : "text-slate-400"}`}>
@@ -143,7 +145,9 @@ function BetCard({ bet, onRemove, onStakeChange }) {
                 <div className="flex items-center gap-1 shrink-0">
                     {bet.isManual && <span className="text-orange-400">manual</span>}
                     {onRemove && (
-                        <button onClick={onRemove} className="text-slate-600 hover:text-red-400 transition-colors ml-1">✕</button>
+                        <button onClick={onRemove} className="text-slate-600 hover:text-red-400 transition-colors ml-1">
+                            <CloseIcon className="w-3 h-3" />
+                        </button>
                     )}
                 </div>
             </div>

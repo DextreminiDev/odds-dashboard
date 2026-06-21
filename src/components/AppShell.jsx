@@ -5,7 +5,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useStrategy } from "@/context/StrategyContext";
 import StrategyEngine from "./StrategyEngine";
-import { MATCH_SLUGS, deriveMatchMeta, isMatchValid } from "@/config/matches";
+import { MATCH_SLUGS, deriveMatchMeta, classifyMatch } from "@/config/matches";
+import ResultsPanel from "./ResultsPanel";
+import { DiamondIcon, TargetIcon, BoltIcon, CheckIcon } from "./icons";
 
 const BATCH_SIZE = 10;
 const STAGGER_MS = 150;
@@ -31,6 +33,7 @@ export default function AppShell({ children }) {
 
     // ── Batch-on-demand match validation ──
     const [matches, setMatches] = useState([]);
+    const [concludedMatches, setConcludedMatches] = useState([]);
     const [loadedCount, setLoadedCount] = useState(0);
     const [batchLoading, setBatchLoading] = useState(false);
 
@@ -40,33 +43,44 @@ export default function AppShell({ children }) {
         if (batchLoading || !hasMore) return;
         setBatchLoading(true);
 
-        const slice = MATCH_SLUGS.slice(loadedCount, loadedCount + BATCH_SIZE);
-        const newlyValid = [];
+        const newlyLive = [];
+        const newlyConcluded = [];
+        let cursor = loadedCount;
 
-        for (let i = 0; i < slice.length; i++) {
-            const slug = slice[i];
+        while (newlyLive.length < BATCH_SIZE && cursor < MATCH_SLUGS.length) {
+            const slug = MATCH_SLUGS[cursor];
+
             try {
                 const res = await fetch(`/api/odds?fixture=${encodeURIComponent(slug)}`);
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const json = await res.json();
-                if (!isMatchValid(json)) throw new Error("concluded or invalid");
+                const classification = classifyMatch(json);
 
-                const meta = deriveMatchMeta(slug, json);
-                if (meta) {
-                    addToCache(slug, json);
-                    newlyValid.push(meta);
+                if (classification !== "invalid") {
+                    const meta = deriveMatchMeta(slug, json);
+                    if (meta) {
+                        addToCache(slug, json);
+                        if (classification === "concluded") {
+                            newlyConcluded.push(meta);
+                        } else {
+                            newlyLive.push(meta);
+                        }
+                    }
                 }
             } catch {
-                // dropped silently
+                // network/fetch error — treat as invalid, skip
             }
 
-            if (i < slice.length - 1) {
+            cursor += 1;
+
+            if (cursor < MATCH_SLUGS.length) {
                 await new Promise((resolve) => setTimeout(resolve, STAGGER_MS));
             }
         }
 
-        setMatches((prev) => sortByKickoff([...prev, ...newlyValid]));
-        setLoadedCount((prev) => prev + slice.length);
+        setMatches((prev) => sortByKickoff([...prev, ...newlyLive]));
+        setConcludedMatches((prev) => sortByKickoff([...prev, ...newlyConcluded]).reverse());
+        setLoadedCount(cursor);
         setBatchLoading(false);
     }, [loadedCount, batchLoading, hasMore, addToCache]);
 
@@ -141,7 +155,7 @@ export default function AppShell({ children }) {
                 {/* Brand + nav */}
                 <div className="px-4 py-3 border-b border-slate-700 shrink-0">
                     <div className="flex items-center gap-2 mb-2">
-                        <span className="text-cyan-400 text-lg">◈</span>
+                        <DiamondIcon className="w-4 h-4 text-cyan-400" />
                         <span className="text-sm font-bold tracking-tight text-white">OddsLab</span>
                     </div>
                     <div className="flex gap-1">
@@ -160,7 +174,7 @@ export default function AppShell({ children }) {
                             onClick={() => setStrategyOpen((prev) => !prev)}
                             className="w-full flex flex-row justify-between items-center px-4 py-3 text-xs font-mono uppercase tracking-widest text-slate-500 border-b border-slate-700"
                         >
-                            <span>⚡ Strategy Engine</span>
+                            <span className="flex items-center gap-1.5"><BoltIcon className="w-3.5 h-3.5 text-cyan-400" /> Strategy Engine</span>
                             <span className={`transition-transform duration-200 ${strategyOpen ? "rotate-90" : ""}`}>›</span>
                         </button>
                         {strategyOpen && (
@@ -216,6 +230,8 @@ export default function AppShell({ children }) {
                             <p className="px-2 py-3 text-xs font-mono text-slate-600">No active matches.</p>
                         )}
                     </nav>
+
+                    <ResultsPanel concludedMatches={concludedMatches} onSelect={handleSelectMatch} />
 
                     {loadError && (
                         <p className="px-4 text-xs text-red-400 font-mono">{loadError}</p>
@@ -304,7 +320,7 @@ function MatchItem({ match, isSelected, isLoading, isCached, isTargeted, onClick
                             {isLoading ? (
                                 <span className="text-yellow-500 animate-pulse">loading…</span>
                             ) : isCached ? (
-                                <span className="text-slate-600">✓</span>
+                                <CheckIcon className="w-3 h-3 text-slate-600" />
                             ) : null}
                         </span>
                     </div>
@@ -318,7 +334,7 @@ function MatchItem({ match, isSelected, isLoading, isCached, isTargeted, onClick
                     }`}
                     title="Toggle as strategy target"
                 >
-                    🎯
+                    <TargetIcon className="w-3.5 h-3.5" />
                 </button>
             </div>
         </div>

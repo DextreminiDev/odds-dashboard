@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { BoltIcon, CloseIcon } from "./icons";
 
 export default function StrategyEngine({
     matches,
@@ -88,7 +89,7 @@ export default function StrategyEngine({
     return (
         <div className="flex flex-col gap-3 p-3">
             <div className="flex items-center gap-1.5">
-                <span className="text-cyan-400 text-xs">⚡</span>
+                <BoltIcon className="w-3.5 h-3.5 text-cyan-400" />
                 <span className="text-xs font-bold uppercase tracking-widest text-slate-300">
                     Strategy Engine
                 </span>
@@ -227,7 +228,7 @@ export default function StrategyEngine({
                                             onClick={() => onRemoveManual(b.outcomeId)}
                                             className="text-slate-600 hover:text-red-400 transition-colors"
                                         >
-                                            ✕
+                                            <CloseIcon className="w-3 h-3" />
                                         </button>
                                     </div>
                                 </div>

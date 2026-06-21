@@ -91,6 +91,7 @@ export default function OddsViewer({ data, loading, error, onAddManual }) {
                     </div>
                     <StatusBadge status={matchStatus} homeScore={eventStatus?.homeScore} awayScore={eventStatus?.awayScore} />
                 </div>
+                <MatchStatsBar stats={eventStatus?.statistic} homeTeam={homeTeam} awayTeam={awayTeam} />
             </div>
 
             {/* Tab bar */}
@@ -279,4 +280,54 @@ function resolveOutcomeName(name, homeTeam, awayTeam) {
     if (name === "X2") return `Draw or ${awayTeam}`;
     if (name === "12") return `${homeTeam} or ${awayTeam}`;
     return name;
+}
+
+const STAT_LABELS = {
+    corners: "Corners",
+    yellowCards: "Yellow",
+    redCards: "Red",
+    shots: "Shots",
+    shotsOnTarget: "On Target",
+    shotsOffTarget: "Off Target",
+    possession: "Possession",
+    fouls: "Fouls",
+    offsides: "Offsides",
+    saves: "Saves",
+    attacks: "Attacks",
+    dangerousAttacks: "Danger. Att.",
+    freeKicks: "Free Kicks",
+    penalties: "Penalties",
+    throwIns: "Throw-ins",
+    goalKicks: "Goal Kicks",
+};
+
+function MatchStatsBar({ stats, homeTeam, awayTeam }) {
+    if (!stats) return null;
+
+    const entries = Object.entries(stats)
+        .filter(([, val]) => val != null && typeof val === "object" && ("home" in val || "away" in val))
+        .map(([key, val]) => ({ key, label: STAT_LABELS[key] ?? key, home: val.home, away: val.away }));
+
+    if (entries.length === 0) return null;
+
+    return (
+        <div className="mt-3 pt-3 border-t border-slate-700/60">
+            <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-slate-600">Match Stats</span>
+            </div>
+            <div className="grid gap-y-1.5 gap-x-4" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))" }}>
+                {entries.map(({ key, label, home, away }) => (
+                    <div key={key} className="flex items-center gap-1.5 text-xs font-mono">
+                        <span className="text-cyan-400 font-bold w-6 text-right shrink-0">{home ?? "–"}</span>
+                        <span className="flex-1 text-center text-slate-500 text-[10px] truncate">{label}</span>
+                        <span className="text-slate-400 font-bold w-6 text-left shrink-0">{away ?? "–"}</span>
+                    </div>
+                ))}
+            </div>
+            <div className="flex justify-between text-[10px] font-mono text-slate-700 mt-1">
+                <span>{homeTeam}</span>
+                <span>{awayTeam}</span>
+            </div>
+        </div>
+    );
 }
