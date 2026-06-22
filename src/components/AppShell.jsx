@@ -237,10 +237,6 @@ export default function AppShell({ children }) {
                         <p className="px-4 text-xs text-red-400 font-mono">{loadError}</p>
                     )}
                 </div>
-
-                <div className="px-4 py-2 border-t border-slate-700 shrink-0">
-                    <p className="text-xs text-slate-700 font-mono">Data via Stake.com</p>
-                </div>
             </aside>
 
             {/* ── Page content ───────────────────────────────────────────── */}
