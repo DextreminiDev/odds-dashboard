@@ -22,6 +22,12 @@ export default function StrategyPage() {
 
     const scenarios = buildScenarioMatrix(allBets);
     const strategyEV = calcStrategyEV(scenarios);
+    const winPct = scenarios
+        .filter(s => s.pnl > 0)
+        .reduce((sum, s) => sum + s.probability, 0) * 100;
+    const lossPct = scenarios
+        .filter(s => s.pnl < 0)
+        .reduce((sum, s) => sum + s.probability, 0) * 100;
     const totalStake = allBets.reduce((s, b) => s + (b.stake || 0), 0);
     const bestCase = scenarios[0]?.pnl ?? 0;
     const worstCase = scenarios[scenarios.length - 1]?.pnl ?? 0;
@@ -59,6 +65,12 @@ export default function StrategyPage() {
                                 value={fmt$(strategyEV)}
                                 positive={strategyEV >= 0}
                             />
+                        )}
+                        {scenarios.length > 0 && (
+                            <>
+                                <Stat label="Win %" value={`${winPct.toFixed(1)}%`} positive={true} />
+                                <Stat label="Loss %" value={`${lossPct.toFixed(1)}%`} positive={false} />
+                            </>
                         )}
                     </div>
                 )}
