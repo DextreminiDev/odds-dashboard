@@ -1,6 +1,6 @@
 "use client";
 
-import { buildScenarioMatrix, fmt$ } from "@/utils/strategyMath";
+import { buildScenarioMatrix, calcStrategyEV, fmt$ } from "@/utils/strategyMath";
 import { useStrategy } from "@/context/StrategyContext";
 import { CheckIcon, CloseIcon } from "@/components/icons";
 
@@ -21,6 +21,7 @@ export default function StrategyPage() {
     ];
 
     const scenarios = buildScenarioMatrix(allBets);
+    const strategyEV = calcStrategyEV(scenarios);
     const totalStake = allBets.reduce((s, b) => s + (b.stake || 0), 0);
     const bestCase = scenarios[0]?.pnl ?? 0;
     const worstCase = scenarios[scenarios.length - 1]?.pnl ?? 0;
@@ -52,6 +53,13 @@ export default function StrategyPage() {
                         <Stat label="Best case" value={fmt$(bestCase)} positive={bestCase >= 0} />
                         <Stat label="Worst case" value={fmt$(worstCase)} positive={worstCase >= 0} />
                         <Stat label="Break-even" value={`${allBets.length > 0 ? ((totalStake / (allBets.reduce((s,b) => s + b.expectedReturn, 0) / allBets.length)) * 100).toFixed(0) : 0}%`} />
+                        {strategyEV != null && (
+                            <Stat
+                                label="Exp. Value"
+                                value={fmt$(strategyEV)}
+                                positive={strategyEV >= 0}
+                            />
+                        )}
                     </div>
                 )}
             </div>
@@ -98,6 +106,7 @@ export default function StrategyPage() {
                                                     <span className="text-slate-600 font-normal">@{(b.odds ?? 0).toFixed(2)}</span>
                                                 </th>
                                             ))}
+                                            <th className="text-right px-3 py-2 text-slate-400 font-semibold">Prob</th>
                                             <th className="text-right px-3 py-2 text-slate-400 font-semibold">P&amp;L</th>
                                             <th className="text-right px-3 py-2 text-slate-400 font-semibold">Return</th>
                                         </tr>
@@ -115,6 +124,9 @@ export default function StrategyPage() {
                                                             }
                                                         </td>
                                                     ))}
+                                                    <td className="px-3 py-1.5 text-right text-slate-500 font-mono text-xs">
+                                                        {(s.probability * 100).toFixed(1)}%
+                                                    </td>
                                                     <td className={`px-3 py-1.5 text-right font-bold ${s.pnl > 0 ? "text-green-400" : s.pnl < 0 ? "text-red-400" : "text-slate-400"}`}>
                                                         {fmt$(s.pnl)}
                                                     </td>
@@ -164,6 +176,10 @@ function BetCard({ bet, onRemove, onStakeChange }) {
                 ) : (
                     <span className="text-cyan-400 font-bold">${(bet.stake ?? 0).toFixed(2)}</span>
                 )}
+            </div>
+            <div className="flex justify-between mt-0.5">
+                <span className="text-slate-600 text-xs font-mono">implied prob</span>
+                <span className="text-slate-500 text-xs font-mono">{(100 / (bet.odds ?? 1)).toFixed(1)}%</span>
             </div>
             <div className="text-slate-600 text-right mt-1">
                 ret: ${((bet.stake ?? 0) * (bet.odds ?? 1)).toFixed(2)}

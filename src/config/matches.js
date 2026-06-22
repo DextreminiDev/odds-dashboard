@@ -22,6 +22,7 @@ export function deriveMatchMeta(slug, apiResponse) {
 }
 
 const CONCLUDED_STATUSES = ["ended", "closed", "finished", "complete", "completed"];
+const KICKOFF_CUTOFF_MS = 3 * 60 * 60 * 1000; // 3 hours
 
 export function classifyMatch(apiResponse) {
     if (!apiResponse) return "invalid";
@@ -32,6 +33,9 @@ export function classifyMatch(apiResponse) {
     if (CONCLUDED_STATUSES.includes(status)) return "concluded";
 
     if (typeof fixture.marketCount === "number" && fixture.marketCount === 0) return "concluded";
+
+    const kickoff = fixture.data?.startTime;
+    if (kickoff && Date.now() - new Date(kickoff).getTime() > KICKOFF_CUTOFF_MS) return "concluded";
 
     return "live";
 }

@@ -103,10 +103,21 @@ export function buildScenarioMatrix(bets) {
             pnl += won ? bet.expectedReturn - bet.stake : -bet.stake;
             outcomes.push({ ...bet, won: !!won });
         }
-        scenarios.push({ outcomes, pnl, winsCount: outcomes.filter((o) => o.won).length });
+        let probability = 1;
+        for (let i = 0; i < n; i++) {
+            const won = (mask >> i) & 1;
+            const implied = 1 / capped[i].odds;
+            probability *= won ? implied : 1 - implied;
+        }
+        scenarios.push({ outcomes, pnl, winsCount: outcomes.filter((o) => o.won).length, probability });
     }
 
     return scenarios.sort((a, b) => b.pnl - a.pnl);
+}
+
+export function calcStrategyEV(scenarios) {
+    if (!scenarios.length) return null;
+    return scenarios.reduce((sum, s) => sum + s.probability * s.pnl, 0);
 }
 
 /** Format a number as a dollar string */
