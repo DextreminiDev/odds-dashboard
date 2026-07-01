@@ -37,5 +37,5 @@ Thumbs.db
 *.swp
 *.swo
 
-# static fixture snapshots — local demo data, not committed
-static/
+# static/fixtures/ is intentionally committed — these are historical match snapshots
+# used as fallback data when Stake no longer serves live odds for concluded matches

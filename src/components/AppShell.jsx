@@ -8,6 +8,7 @@ import StrategyEngine from "./StrategyEngine";
 import { MATCH_SLUGS, deriveMatchMeta, classifyMatch } from "@/config/matches";
 import ResultsPanel from "./ResultsPanel";
 import { DiamondIcon, TargetIcon, BoltIcon, CheckIcon } from "./icons";
+import { hasStaticFixture, loadStaticFixture } from "@/utils/staticFixtures";
 
 const BATCH_SIZE = 10;
 const STAGGER_MS = 150;
@@ -108,6 +109,14 @@ export default function AppShell({ children }) {
         }
 
         if (isCached(matchId)) return;
+
+        if (hasStaticFixture(matchId)) {
+            const staticData = await loadStaticFixture(matchId);
+            if (staticData) {
+                addToCache(matchId, staticData);
+                return;
+            }
+        }
 
         setLoadingId(matchId);
         try {

@@ -5,7 +5,7 @@
 
 import { useState } from "react";
 
-export default function OddsViewer({ data, loading, error, onAddManual }) {
+export default function OddsViewer({ data, loading, error, onAddManual, readOnly = false }) {
     const [activeTab, setActiveTab] = useState(null);
     const [popover, setPopover] = useState(null); // { outcomeId, outcomeName, odds, marketName, matchId, matchName }
     const [stakeInput, setStakeInput] = useState("");
@@ -123,6 +123,7 @@ export default function OddsViewer({ data, loading, error, onAddManual }) {
                             homeTeam={homeTeam}
                             awayTeam={awayTeam}
                             onAddManual={openPopover}
+                            readOnly={readOnly}
                         />
                     ))
                 )}
@@ -205,7 +206,7 @@ function StatusBadge({ status, homeScore, awayScore }) {
     );
 }
 
-function MarketCard({ market, homeTeam, awayTeam, onAddManual }) {
+function MarketCard({ market, homeTeam, awayTeam, onAddManual, readOnly }) {
     const outcomes = market.outcomes ?? [];
     const isActive = market.status === "active";
     const activeOutcomes = outcomes.filter((o) => o.active && o.odds > 0);
@@ -236,6 +237,7 @@ function MarketCard({ market, homeTeam, awayTeam, onAddManual }) {
                         awayTeam={awayTeam}
                         overround={overround}
                         onAddManual={() => onAddManual(outcome.id, resolveOutcomeName(outcome.name, homeTeam, awayTeam), outcome.odds, market.name)}
+                        readOnly={readOnly}
                     />
                 ))}
             </div>
@@ -243,7 +245,7 @@ function MarketCard({ market, homeTeam, awayTeam, onAddManual }) {
     );
 }
 
-function OutcomeButton({ outcome, homeTeam, awayTeam, overround, onAddManual }) {
+function OutcomeButton({ outcome, homeTeam, awayTeam, overround, onAddManual, readOnly }) {
     const displayName = resolveOutcomeName(outcome.name, homeTeam, awayTeam);
     const impliedProb = outcome.odds > 0 && overround > 0 ? (1 / outcome.odds) / overround : null;
 
@@ -258,7 +260,7 @@ function OutcomeButton({ outcome, homeTeam, awayTeam, overround, onAddManual }) 
             {impliedProb != null && (
                 <span className="text-[10px] text-slate-600 font-mono mt-1.5">{(impliedProb * 100).toFixed(0)}%</span>
             )}
-            {outcome.active && (
+            {outcome.active && !readOnly && (
                 <button
                     onClick={(e) => { e.stopPropagation(); onAddManual(); }}
                     className="absolute top-1 right-1 w-4 h-4 rounded-sm bg-slate-600 text-slate-400 text-xs opacity-0 group-hover:opacity-100 hover:bg-cyan-500 hover:text-slate-900 transition-all flex items-center justify-center leading-none font-bold"

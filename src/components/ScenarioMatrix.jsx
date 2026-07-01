@@ -58,7 +58,6 @@ export default function StrategyPage() {
                     <div className="flex gap-4 mt-3">
                         <Stat label="Best case" value={fmt$(bestCase)} positive={bestCase >= 0} />
                         <Stat label="Worst case" value={fmt$(worstCase)} positive={worstCase >= 0} />
-                        <Stat label="Break-even" value={`${allBets.length > 0 ? ((totalStake / (allBets.reduce((s,b) => s + b.expectedReturn, 0) / allBets.length)) * 100).toFixed(0) : 0}%`} />
                         {strategyEV != null && (
                             <Stat
                                 label="Exp. Value"
