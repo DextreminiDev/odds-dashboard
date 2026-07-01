@@ -1,0 +1,121 @@
+{
+  "data": {
+    "slugFixture": {
+      "id": "366d1cd2-0f50-47f8-8043-e336517da4eb",
+      "betradarStream": {
+        "exists": false
+      },
+      "liveStream": {
+        "data": null
+      },
+      "slug": "46511484-germany-ivory-coast",
+      "extId": "sr:match:66457074",
+      "status": "ended",
+      "name": "Germany - Ivory Coast",
+      "provider": "betradar",
+      "widgetUrl": null,
+      "liveWidgetUrl": null,
+      "customBetAvailable": false,
+      "swishGame": null,
+      "eventStatus": {
+        "__typename": "SportFixtureEventStatusData",
+        "homeScore": 2,
+        "awayScore": 1,
+        "matchStatus": "Ended",
+        "clock": {
+          "matchTime": null,
+          "remainingTime": null
+        },
+        "periodScores": [
+          {
+            "homeScore": 0,
+            "awayScore": 1,
+            "matchStatus": "1st half"
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 0,
+            "matchStatus": "2nd half"
+          }
+        ],
+        "currentTeamServing": null,
+        "homeGameScore": null,
+        "awayGameScore": null,
+        "statistic": {
+          "yellowCards": {
+            "away": 0,
+            "home": 0
+          },
+          "redCards": {
+            "away": 0,
+            "home": 0
+          },
+          "corners": {
+            "home": 8,
+            "away": 3
+          }
+        }
+      },
+      "data": {
+        "startTime": "Sat, 20 Jun 2026 20:00:00 GMT",
+        "isOutright": false,
+        "competitors": [
+          {
+            "name": "Germany",
+            "defaultName": "Germany",
+            "extId": "sr:competitor:4711",
+            "countryCode": "DE",
+            "abbreviation": "GER",
+            "iconPath": null
+          },
+          {
+            "name": "Ivory Coast",
+            "defaultName": "Ivory Coast",
+            "extId": "sr:competitor:4768",
+            "countryCode": "CI",
+            "abbreviation": "CIV",
+            "iconPath": null
+          }
+        ],
+        "teams": [
+          {
+            "extId": "sr:competitor:4711",
+            "name": "Germany",
+            "qualifier": "home"
+          },
+          {
+            "extId": "sr:competitor:4768",
+            "name": "Ivory Coast",
+            "qualifier": "away"
+          }
+        ],
+        "tvChannels": null,
+        "__typename": "SportFixtureDataMatch"
+      },
+      "contentNotes": [],
+      "tournament": {
+        "id": "24556add-af26-4844-b338-07fc47991731",
+        "name": "FIFA World Cup",
+        "slug": "world-cup",
+        "contentNotes": [],
+        "category": {
+          "id": "737379d9-a808-42fd-8303-50864b021649",
+          "name": "International",
+          "slug": "international",
+          "contentNotes": [],
+          "sport": {
+            "id": "5b4b60b9-ed95-41e7-97e3-f33aa172cf12",
+            "name": "Soccer",
+            "slug": "soccer",
+            "contentNotes": []
+          }
+        },
+        "frontRowSeatEvent": null
+      },
+      "groups": [],
+      "maps": [],
+      "frontRowSeatFight": null,
+      "group": []
+    }
+  }
+}

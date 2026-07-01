@@ -1,0 +1,121 @@
+{
+  "data": {
+    "slugFixture": {
+      "id": "39df03c8-1801-4259-92c0-e54720f3e9e2",
+      "betradarStream": {
+        "exists": false
+      },
+      "liveStream": {
+        "data": null
+      },
+      "slug": "46232386-brazil-haiti",
+      "extId": "sr:match:66456932",
+      "status": "ended",
+      "name": "Brazil - Haiti",
+      "provider": "betradar",
+      "widgetUrl": null,
+      "liveWidgetUrl": null,
+      "customBetAvailable": false,
+      "swishGame": null,
+      "eventStatus": {
+        "__typename": "SportFixtureEventStatusData",
+        "homeScore": 3,
+        "awayScore": 0,
+        "matchStatus": "Ended",
+        "clock": {
+          "matchTime": null,
+          "remainingTime": null
+        },
+        "periodScores": [
+          {
+            "homeScore": 3,
+            "awayScore": 0,
+            "matchStatus": "1st half"
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 0,
+            "matchStatus": "2nd half"
+          }
+        ],
+        "currentTeamServing": null,
+        "homeGameScore": null,
+        "awayGameScore": null,
+        "statistic": {
+          "yellowCards": {
+            "away": 3,
+            "home": 1
+          },
+          "redCards": {
+            "away": 0,
+            "home": 0
+          },
+          "corners": {
+            "home": 4,
+            "away": 4
+          }
+        }
+      },
+      "data": {
+        "startTime": "Sat, 20 Jun 2026 00:30:00 GMT",
+        "isOutright": false,
+        "competitors": [
+          {
+            "name": "Brazil",
+            "defaultName": "Brazil",
+            "extId": "sr:competitor:4748",
+            "countryCode": "BR",
+            "abbreviation": "BRA",
+            "iconPath": null
+          },
+          {
+            "name": "Haiti",
+            "defaultName": "Haiti",
+            "extId": "sr:competitor:7229",
+            "countryCode": "HT",
+            "abbreviation": "HAI",
+            "iconPath": null
+          }
+        ],
+        "teams": [
+          {
+            "extId": "sr:competitor:4748",
+            "name": "Brazil",
+            "qualifier": "home"
+          },
+          {
+            "extId": "sr:competitor:7229",
+            "name": "Haiti",
+            "qualifier": "away"
+          }
+        ],
+        "tvChannels": null,
+        "__typename": "SportFixtureDataMatch"
+      },
+      "contentNotes": [],
+      "tournament": {
+        "id": "24556add-af26-4844-b338-07fc47991731",
+        "name": "FIFA World Cup",
+        "slug": "world-cup",
+        "contentNotes": [],
+        "category": {
+          "id": "737379d9-a808-42fd-8303-50864b021649",
+          "name": "International",
+          "slug": "international",
+          "contentNotes": [],
+          "sport": {
+            "id": "5b4b60b9-ed95-41e7-97e3-f33aa172cf12",
+            "name": "Soccer",
+            "slug": "soccer",
+            "contentNotes": []
+          }
+        },
+        "frontRowSeatEvent": null
+      },
+      "groups": [],
+      "maps": [],
+      "frontRowSeatFight": null,
+      "group": []
+    }
+  }
+}

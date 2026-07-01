@@ -1,0 +1,121 @@
+{
+  "data": {
+    "slugFixture": {
+      "id": "78bc4c8e-92ce-4647-a6f4-844af667a061",
+      "betradarStream": {
+        "exists": false
+      },
+      "liveStream": {
+        "data": null
+      },
+      "slug": "46511469-usa-australia",
+      "extId": "sr:match:66456944",
+      "status": "ended",
+      "name": "USA - Australia",
+      "provider": "betradar",
+      "widgetUrl": null,
+      "liveWidgetUrl": null,
+      "customBetAvailable": false,
+      "swishGame": null,
+      "eventStatus": {
+        "__typename": "SportFixtureEventStatusData",
+        "homeScore": 2,
+        "awayScore": 0,
+        "matchStatus": "Ended",
+        "clock": {
+          "matchTime": null,
+          "remainingTime": null
+        },
+        "periodScores": [
+          {
+            "homeScore": 2,
+            "awayScore": 0,
+            "matchStatus": "1st half"
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 0,
+            "matchStatus": "2nd half"
+          }
+        ],
+        "currentTeamServing": null,
+        "homeGameScore": null,
+        "awayGameScore": null,
+        "statistic": {
+          "yellowCards": {
+            "away": 4,
+            "home": 3
+          },
+          "redCards": {
+            "away": 0,
+            "home": 0
+          },
+          "corners": {
+            "home": 7,
+            "away": 4
+          }
+        }
+      },
+      "data": {
+        "startTime": "Fri, 19 Jun 2026 19:00:00 GMT",
+        "isOutright": false,
+        "competitors": [
+          {
+            "name": "USA",
+            "defaultName": "USA",
+            "extId": "sr:competitor:4724",
+            "countryCode": "US",
+            "abbreviation": "USA",
+            "iconPath": null
+          },
+          {
+            "name": "Australia",
+            "defaultName": "Australia",
+            "extId": "sr:competitor:4741",
+            "countryCode": "AU",
+            "abbreviation": "AUS",
+            "iconPath": null
+          }
+        ],
+        "teams": [
+          {
+            "extId": "sr:competitor:4724",
+            "name": "USA",
+            "qualifier": "home"
+          },
+          {
+            "extId": "sr:competitor:4741",
+            "name": "Australia",
+            "qualifier": "away"
+          }
+        ],
+        "tvChannels": null,
+        "__typename": "SportFixtureDataMatch"
+      },
+      "contentNotes": [],
+      "tournament": {
+        "id": "24556add-af26-4844-b338-07fc47991731",
+        "name": "FIFA World Cup",
+        "slug": "world-cup",
+        "contentNotes": [],
+        "category": {
+          "id": "737379d9-a808-42fd-8303-50864b021649",
+          "name": "International",
+          "slug": "international",
+          "contentNotes": [],
+          "sport": {
+            "id": "5b4b60b9-ed95-41e7-97e3-f33aa172cf12",
+            "name": "Soccer",
+            "slug": "soccer",
+            "contentNotes": []
+          }
+        },
+        "frontRowSeatEvent": null
+      },
+      "groups": [],
+      "maps": [],
+      "frontRowSeatFight": null,
+      "group": []
+    }
+  }
+}

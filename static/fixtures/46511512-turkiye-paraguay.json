@@ -1,0 +1,121 @@
+{
+  "data": {
+    "slugFixture": {
+      "id": "1686dc1c-ee09-4f89-9711-8901f75c3f60",
+      "betradarStream": {
+        "exists": false
+      },
+      "liveStream": {
+        "data": null
+      },
+      "slug": "46511512-turkiye-paraguay",
+      "extId": "sr:match:66456946",
+      "status": "ended",
+      "name": "Turkiye - Paraguay",
+      "provider": "betradar",
+      "widgetUrl": null,
+      "liveWidgetUrl": null,
+      "customBetAvailable": false,
+      "swishGame": null,
+      "eventStatus": {
+        "__typename": "SportFixtureEventStatusData",
+        "homeScore": 0,
+        "awayScore": 1,
+        "matchStatus": "Ended",
+        "clock": {
+          "matchTime": null,
+          "remainingTime": null
+        },
+        "periodScores": [
+          {
+            "homeScore": 0,
+            "awayScore": 1,
+            "matchStatus": "1st half"
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 0,
+            "matchStatus": "2nd half"
+          }
+        ],
+        "currentTeamServing": null,
+        "homeGameScore": null,
+        "awayGameScore": null,
+        "statistic": {
+          "yellowCards": {
+            "away": 2,
+            "home": 3
+          },
+          "redCards": {
+            "away": 1,
+            "home": 0
+          },
+          "corners": {
+            "home": 12,
+            "away": 0
+          }
+        }
+      },
+      "data": {
+        "startTime": "Sat, 20 Jun 2026 03:00:00 GMT",
+        "isOutright": false,
+        "competitors": [
+          {
+            "name": "Turkiye",
+            "defaultName": "Turkiye",
+            "extId": "sr:competitor:4700",
+            "countryCode": "TR",
+            "abbreviation": "TUR",
+            "iconPath": null
+          },
+          {
+            "name": "Paraguay",
+            "defaultName": "Paraguay",
+            "extId": "sr:competitor:4789",
+            "countryCode": "PY",
+            "abbreviation": "PAR",
+            "iconPath": null
+          }
+        ],
+        "teams": [
+          {
+            "extId": "sr:competitor:4700",
+            "name": "Turkiye",
+            "qualifier": "home"
+          },
+          {
+            "extId": "sr:competitor:4789",
+            "name": "Paraguay",
+            "qualifier": "away"
+          }
+        ],
+        "tvChannels": null,
+        "__typename": "SportFixtureDataMatch"
+      },
+      "contentNotes": [],
+      "tournament": {
+        "id": "24556add-af26-4844-b338-07fc47991731",
+        "name": "FIFA World Cup",
+        "slug": "world-cup",
+        "contentNotes": [],
+        "category": {
+          "id": "737379d9-a808-42fd-8303-50864b021649",
+          "name": "International",
+          "slug": "international",
+          "contentNotes": [],
+          "sport": {
+            "id": "5b4b60b9-ed95-41e7-97e3-f33aa172cf12",
+            "name": "Soccer",
+            "slug": "soccer",
+            "contentNotes": []
+          }
+        },
+        "frontRowSeatEvent": null
+      },
+      "groups": [],
+      "maps": [],
+      "frontRowSeatFight": null,
+      "group": []
+    }
+  }
+}
